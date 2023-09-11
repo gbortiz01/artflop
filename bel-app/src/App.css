@@ -1,0 +1,18 @@
+:root {
+  --color-primario: #d1aedc; 
+  --color-secundario: #f6c6b8; 
+  --color-fondo: #fbe3e0; 
+  --color-texto: #333; 
+}
+
+
+body {
+  background-color: var(--color-primario);
+  color: var(--color-texto);
+  font-family: Arial, sans-serif;
+}
+
+.BgNavbar {
+ background-color: var(--color-fondo);
+}
+
