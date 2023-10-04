@@ -5,7 +5,7 @@ const CartContiner = () => {
     return (
         <div className="bg-info-subtle rounded-circle p-3 position-relative"> 
             <CartIcon/>
-            <CartItems count={2}/>
+            <CartItems count={1}/>
         </div>
     );    
 };

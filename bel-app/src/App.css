@@ -10,9 +10,133 @@ body {
   background-color: var(--color-primario);
   color: var(--color-texto);
   font-family: Arial, sans-serif;
+  
 }
 
 .BgNavbar {
  background-color: var(--color-fondo);
+}
+
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  margin-top: 80px;
+}
+
+/* Estilos para cada tarjeta individual */
+.card {
+  background-color: var(--color-fondo);
+  border: 1px solid var(--color-primario);
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.card-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: var(--color-primario); 
+}
+
+.card-text {
+  margin-top: 10px;
+  color: var(--color-texto); 
+}
+
+.stock-button button {
+  background-color: var(--color-primario);
+  color: var(--color-texto);
+  border: none;
+  padding: 5px 10px;
+  margin: 0;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.stock-button button:disabled {
+  background-color: var(--color-secundario);
+  cursor: not-allowed;
+}
+
+.stock-count {
+  font-size: 1rem;
+  padding: 0 10px;
+}
+
+/* ItemDetail.css */
+
+/* Contenedor principal */
+.item-detail {
+  background-color: #f9f9f9;
+  border: 1px solid #e2e2e2;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  margin: 20px auto;
+  max-width: 400px;
+}
+
+/* Título */
+.item-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+  margin: 10px 0;
+}
+
+/* Imagen */
+.item-image {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  border-radius: 10px;
+  margin: 10px 0;
+}
+
+/* Descripción */
+.item-description {
+  font-size: 1rem;
+  color: #666;
+  margin: 10px 0;
+}
+
+/* Precio */
+.item-price {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #d1aedc;
+  margin: 10px 0;
+}
+
+/* Estilos para el botón del stock */
+.stock-button button {
+  background-color: #d1aedc;
+  color: #fbe3e0;
+  border: none;
+  padding: 8px 16px;
+  margin: 10px 0;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.stock-button button:disabled {
+  background-color: #f6c6b8;
+  cursor: not-allowed;
+}
+
+.stock-count {
+  font-size: 1rem;
+  padding: 0 5px;
 }
 
