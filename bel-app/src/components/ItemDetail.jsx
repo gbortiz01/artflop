@@ -1,7 +1,11 @@
 import React from "react";
 import StockButton from "./StockButton";
 
-const ItemDetail = ({ producto, onAdd }) => {
+const ItemDetail = ({ producto }) => {
+  const onAdd = (cantidad) => {
+    console.log(`Compro ${cantidad} productos`);
+  };
+
   return (
     <div className="item-detail">
       <h3 className="item-title">Detalle de: {producto.name}</h3>
@@ -19,3 +23,4 @@ const ItemDetail = ({ producto, onAdd }) => {
 };
 
 export default ItemDetail;
+

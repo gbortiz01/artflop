@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-
 const Item = (prod) => { 
     return (
         <div>
@@ -12,14 +11,13 @@ const Item = (prod) => {
                     <p className="card-text">Precio: ${prod.precio}</p>
                 </div>
                 <div className="delicate-button">
-                    <button as={Link} to={`/item/${prod.id}`} >ver mas</button>
+                    <Link to={`/item/${prod.id}`}>ver mas</Link>
                 </div>
-                
             </div>
         </div>
     );
 };
 
-
 export default Item;
+;
 

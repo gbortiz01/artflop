@@ -66,7 +66,7 @@ export const ListProduct = () => {
   });
 };
 
-export const getItem = () => {
+export const getItem = (id) => {
   return new Promise ((resolve) => {
     setTimeout (()=>{
       resolve(products.find((item) => item.id === id ))
