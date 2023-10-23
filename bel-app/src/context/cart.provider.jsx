@@ -1,37 +1,72 @@
-import { collection, getDocs, getFirestore } from "firebase/firestore";
-import { useEffect, useState } from "react";
-import useIsLoading from "../hooks/useLoading";
+import { useState } from "react";
+import CartContext from "./cart.context";
 
-export default function useItems() {
-  const [productos, setItems] = useState([]);
-  const { stopLoading, isLoading } = useIsLoading();
+export default function CartProvider({ children }) {
+  const [cart, setCart] = useState({
+    products: [],
+    total: 0,
+  });
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const db = getFirestore();
-      const productosCollection = collection(db, "products"); 
-
-      try {
-        const snapshot = await getDocs(productosCollection);
-
-        if (!snapshot.empty) {
-          setItems(
-            snapshot.docs.map((doc) => ({
-              id: doc.id,
-              ...doc.data(),
-            }))
-          );
-        }
-      } catch (error) {
-        console.error("Error al obtener la lista de productos:", error);
-      } finally {
-        stopLoading();
-      }
+  const addItem = (item, quantity) => {
+    const { products } = cart;
+    const index = products.findIndex((i) => i.item.id === item.id);
+    
+    if (index > -1) {
+    products[index].quantity += quantity;
+    } else {
+    products.push({
+    item,
+    quantity,
+    });
+    }
+    
+    setCart({
+    ...cart,
+    products,
+    total: getTotal(),
+    });
     };
-
-    fetchData();
-  }, [stopLoading]);
-
-  return { productos, isLoading };
+    
+    const removeItem = (itemId) => {
+    const { products } = cart;
+    const index = products.findIndex((i) => i.item.id === itemId);
+    
+    if (index > -1) {
+    products.splice(index, 1);
+    }
+    
+    setCart({
+    ...cart,
+    products,
+    });
+    };
+    
+    const clear = () => {
+    setCart((prevValues) => ({
+    ...prevValues,
+    products: [],
+    total: 0,
+    }));
+    };
+    
+    const getTotal = () => {
+    const { products } = cart;
+    return products.reduce(
+    (acc, item) => acc + item.quantity * item.item.price,
+    0
+    );
+    };
+  return (
+    <CartContext.Provider
+      value={{
+        cart,
+        addItem,
+        removeItem,
+        clear,
+        getTotal,
+      }}
+    >
+      {children}
+    </CartContext.Provider>
+  );
 }
-

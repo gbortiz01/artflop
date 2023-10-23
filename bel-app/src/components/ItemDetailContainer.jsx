@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import ItemDetail from './ItemDetail';
 import { useParams } from 'react-router-dom';
-import { useItems} from '../hooks/useItem';
+import  useItems from '../hooks/useItem';
 
 const ItemDetailContainer = () => {
   const { id } = useParams();
