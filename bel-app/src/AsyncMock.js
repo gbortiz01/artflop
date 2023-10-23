@@ -5,7 +5,7 @@ const products = [
     name: 'Mates',
     category: 'mates',
     description: 'Descripción del Mate intervenido.',
-    precio: 10.99,
+    precio: 1000.99,
     stock: 5,
     img: 'https://i.postimg.cc/T3Y7P7zC/Yerbera-Azucarera01.jpg'
   },
@@ -15,7 +15,7 @@ const products = [
     name: 'Mates',
     category: 'mates',
     description: 'Descripción del Mate Personalizado.',
-    precio: 15.99,
+    precio: 1500.99,
     stock: 3,
     img: 'https://i.postimg.cc/pdVHRJCH/Mate-Retrato02.jpg'
   },
@@ -35,7 +35,7 @@ const products = [
     name: 'Mates',
     category: 'mates' ,
     description: 'Descripción del Mate Retrato Mascota.',
-    precio: 25.99,
+    precio: 2500.99,
     stock: 8,
     img: 'https://i.postimg.cc/KYfHfXnX/Mate-Retrato01.jpg'
   },
@@ -46,7 +46,7 @@ const products = [
     name: 'Cuadros',
     category: 'cuadros' ,
     description: 'Este cuadro es una obra de arte única que combina la maestría artística con la pasión por capturar la belleza y la personalidad de un individuo en un lienzo. Cada detalle está cuidadosamente elaborado a mano por un talentoso artista, lo que resulta en una pieza de arte que perdurará a lo largo del tiempo.',
-    precio: 39.99,
+    precio: 3900.99,
     stock: 5,
     img: 'https://i.postimg.cc/FzVddxMx/cuadro01.jpg'
   }

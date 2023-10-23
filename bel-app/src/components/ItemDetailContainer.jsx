@@ -1,25 +1,30 @@
-import React, {useEffect, useState} from 'react';
-import { getItem } from '../AsyncMock';
+import React, { useEffect } from 'react';
 import ItemDetail from './ItemDetail';
 import { useParams } from 'react-router-dom';
-
+import { useItems} from '../hooks/useItem';
 
 const ItemDetailContainer = () => {
-  const [producto, setproducto] = useState([]);
-  const {id} = useParams()
+  const { id } = useParams();
+  const { products } = useItems(); 
+
   
-  useEffect (() => {
-    getItem(parseInt(id))
-    .then((res) => setproducto(res))
-    .catch((error)=> console.log(error))
-  },[])
+  const producto = products.find((prod) => prod.id === parseInt(id));
+
+  useEffect(() => {
+    // Puedes realizar cualquier acción adicional si es necesario aquí
+  }, []);
+
+  if (!producto) {
+    return <div>Cargando...</div>;
+  }
 
   return (
     <div>
-        <ItemDetail producto={producto}/>
+      <ItemDetail producto={producto} />
     </div>
   );
 };
 
 export default ItemDetailContainer;
+
 

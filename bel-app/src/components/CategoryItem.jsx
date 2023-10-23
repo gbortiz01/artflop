@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 
 const CategoryItem = ({ isActive = false, name, onClick }) => {
   return (
-    <div className={`nav-link ${isActive ? "active fw-bolder" : null}`}>
+    <span className={`nav-link ${isActive ? "active fw-bolder" : ""}`}>
       <NavLink
         to={`/${name}`}
         aria-current="page"
@@ -11,11 +11,14 @@ const CategoryItem = ({ isActive = false, name, onClick }) => {
       >
         {name}
       </NavLink>
-    </div>
+    </span>
   );
 };
 
 export default CategoryItem;
+
+
+
 
 
 

@@ -1,31 +1,23 @@
-import React, { useEffect, useState } from 'react';
-import ItemList from "./ItemList"; 
-import { ListProduct } from '../AsyncMock';
-import { useParams } from 'react-router-dom';
+import React, { useContext } from 'react';
+import ItemList from './ItemList';
+import useItems from '../hooks/useItem';
+import CartContext from '../context/cart.context';
 
-const ItemListContainer = ({ greting }) => {
-    const [productos, setproductos] = useState([]);
-    const {categoryId} = useParams()
-    useEffect(() => {
-        ListProduct()
-            .then((res) => {
-                if (categoryId){
-                    setproductos(res.filter((item)=>item.category === categoryId))
+const ItemListContainer = ({ greeting }) => {
+  const { products, isLoading } = useItems();
+  const { addItem } = useContext(CartContext);
 
-                }else {
-                    setproductos(res)
-                }
-            })
-            .catch((error) => console.log(error));
-    }, [categoryId]); 
+  if (isLoading){
+    return <div> Cargando... </div>
+  }
 
-   
-    return (
-        <div>
-            <h1>{greting}<span>{categoryId && categoryId}</span></h1>
-            <ItemList productos={productos} />
-        </div>
-    );
+  return (
+    <div>
+      <h1>{greeting}</h1>
+      <ItemList products={products} onAddToCart={addItem} />
+    </div>
+  );
 };
 
 export default ItemListContainer;
+

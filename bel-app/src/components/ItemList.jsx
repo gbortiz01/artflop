@@ -1,13 +1,28 @@
-import React from "react";
+import React, { useContext } from "react";
 import Item from "./item";
+import useItems from "../hooks/useItem"; 
+import CartContext from '../context/cart.context';
 
+const ItemList = () => {
+  const { products, isLoading } = useItems(); 
+  const { addItem } = useContext(CartContext);
 
-const ItemList = ({ productos }) => {
-    return (
-        <div className="card-container">
-            {productos.map((prod) => <Item key={prod.id} {...prod} />)}
-        </div>
-    )
-}
+  if (isLoading) {
+    return <p>Cargando productos...</p>;
+  }
+
+  return (
+    <div className="card-container">
+      {products.map((prod) => (
+        <Item
+          key={prod.id}
+          {...prod}
+          onAddToCart={() => addItem(prod)}
+        />
+      ))}
+    </div>
+  );
+};
 
 export default ItemList;
+

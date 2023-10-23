@@ -22,7 +22,7 @@ const StockButton = ({ stock, onAdd, initial }) => {
       <span className="stock-count">{productCount}</span>
       <button className="delicate-button" onClick={incrementar} > Agregar</button>
       <div>
-      <button className={`delicate-button ${productCount === 0 ? 'disabled' : '' }`} onClick={() => onAdd(productCount)} >Comprar</button>
+      <button className={`delicate-button ${productCount === 0 ? 'disabled' : '' }`} onClick={() => onAdd(productCount)}>Comprar</button>
       </div>
     </div>
   
