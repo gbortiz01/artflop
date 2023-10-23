@@ -28,7 +28,7 @@ export default function useItems() {
     };
 
     fetchProducts();
-  }, [stopLoading]);
+  }, []);
 
   return { products, isLoading };
 }
