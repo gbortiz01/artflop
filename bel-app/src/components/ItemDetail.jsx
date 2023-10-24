@@ -1,62 +1,30 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext } from "react";
 import StockButton from "./StockButton";
-import { useNavigate, useParams } from 'react-router-dom';
-import { doc, getDoc } from "firebase/firestore"; 
-import { getFirestore } from "firebase/firestore"; 
+import { useParams } from 'react-router-dom';
+import CartContext from "../context/cart.context";
+import useItemById from "../hooks/useItemById"
 
-const ItemDetail = ({ onAddToCart }) => {
-  const navigate = useNavigate();
-  const { id } = useParams();
+const ItemDetail = () => {
+  const params = useParams();
+  const { product, isLoading } = useItemById(params.itemId);
+  const { addItem } = useContext(CartContext);
 
-  const [producto, setProducto] = useState(null);
-
-  useEffect(() => {
-    const fetchProduct = async () => {
-      try {
-        const db = getFirestore();
-                const productRef = doc(db, 'products', id);
-        const productDoc = await getDoc(productRef);
-
-        if (productDoc.exists()) {
-          const productData = productDoc.data();
-          setProducto(productData);
-        } else {
-          console.log("El producto no existe en la base de datos.");
-        }
-      } catch (error) {
-        console.error("Error al obtener los datos del producto:", error);
-      }
-    };
-
-    fetchProduct(); 
-  }, [id]);
-
-  const handleTerminarCompra = () => {
-    if (producto) {
-      onAddToCart(producto);
-      navigate('/cart');
-    }
-  };
-
-  if (!producto) {
+  if (isLoading) {
     return <div>Cargando producto...</div>;
   }
 
   return (
     <div className="item-detail">
-      <h3 className="item-title">Detalle de: {producto.name}</h3>
+      <h3 className="item-title">Detalle de: {product.title}</h3>
       <img
         className="item-image"
         width={'300px'}
-        src={producto.img}
-        alt={producto.name}
+        src={product.img}
+        alt={product.title}
       />
-      <p className="item-description">{producto.description}</p>
-      <p className="item-price">${producto.precio}</p>
-      <StockButton initial={1} stock={producto.stock} onAdd={() => {}} />
-      <button className="delicate-button" onClick={handleTerminarCompra}>
-        Terminar mi compra
-      </button>
+      <p className="item-description">{product.description}</p>
+      <p className="item-price">${product.precio}</p>
+      <StockButton initial={0} stock={product.stock} onAdd={addItem} />
     </div>
   );
 };

@@ -4,23 +4,17 @@ import { useParams } from 'react-router-dom';
 import  useItems from '../hooks/useItem';
 
 const ItemDetailContainer = () => {
-  const { id } = useParams();
+  const { itemId } = useParams();
   const { products } = useItems(); 
 
-  
-  const producto = products.find((prod) => prod.id === parseInt(id));
+  const producto = products.find((prod) => prod.id === parseInt(itemId));
 
   useEffect(() => {
-    // Puedes realizar cualquier acción adicional si es necesario aquí
   }, []);
-
-  if (!producto) {
-    return <div>Cargando...</div>;
-  }
 
   return (
     <div>
-      <ItemDetail producto={producto} />
+      <ItemDetail prod={producto} />
     </div>
   );
 };

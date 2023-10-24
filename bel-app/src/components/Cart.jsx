@@ -11,7 +11,7 @@ function Cart() {
     return (
       <div>
         <p>El carrito está vacío</p>
-        <button onClick={() => navigate("/")}>Seguir Comprando</button>
+        <button  className="delicate-button" onClick={() => navigate("/")}>Volver a tienda</button>
       </div>
     );
   }

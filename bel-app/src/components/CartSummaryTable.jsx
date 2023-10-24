@@ -1,30 +1,36 @@
+import React from "react";
 
-  
-  function CartSummaryTable({ cart }) {
-    return (
-      <TableContainer>
-        <Table>
-          <Thead>
-            <Tr>
-              <Th>Producto</Th>
-              <Th>Cantidad</Th>
-              <Th>Precio Unitario</Th>
-              <Th>Precio total</Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            {cart.productss.map(({ products, quantity }) => (
-              <Tr textAlign={"left"} key={products.id}>
-                <Td>{products.title}</Td>
-                <Td>{quantity}</Td>
-                <Td isNumeric>${products.price}</Td>
-                <Td isNumeric>${products.price * quantity}</Td>
-              </Tr>
-            ))}
-          </Tbody>
-        </Table>
-      </TableContainer>
-    );
+function CartSummaryTable({ cart }) {
+  if (!cart || !cart.products) {
+    return <div>No hay productos en el carrito.</div>;
   }
-  
-  export default CartSummaryTable;
+
+  return (
+    <div className="table-responsive">
+      <table className="table">
+        <thead>
+          <tr>
+            <th>Producto</th>
+            <th>Cantidad</th>
+            <th>Precio Unitario</th>
+            <th>Precio Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          {cart.products.map(({ product, quantity }) => (
+            <tr key={product.id}>
+              <td>{product.title}</td>
+              <td>{quantity}</td>
+              <td>${product.price}</td>
+              <td>${product.price * quantity}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+export default CartSummaryTable;
+
+

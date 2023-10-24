@@ -3,17 +3,17 @@ import { useEffect, useState } from "react";
 import useIsLoading from "./useLoading";
 
 export default function useItemById(id) {
-  const [products, setItem] = useState(null);
+  const [product, setProduct] = useState(null);
   const { stopLoading, isLoading } = useIsLoading();
 
   useEffect(() => {
     const db = getFirestore();
-
     const itemRef = doc(db, "products", id);
+
     getDoc(itemRef)
       .then((snapshot) => {
         if (snapshot.exists()) {
-          setItem({
+          setProduct({
             id: snapshot.id,
             ...snapshot.data(),
           });
@@ -22,7 +22,7 @@ export default function useItemById(id) {
         }
       })
       .catch((error) => {
-        console.log(error);
+        console.error("Error al obtener el documento:", error);
       })
       .finally(() => {
         stopLoading();
@@ -30,7 +30,7 @@ export default function useItemById(id) {
   }, [id, stopLoading]);
 
   return {
-    products,
+    product,
     isLoading,
   };
 }

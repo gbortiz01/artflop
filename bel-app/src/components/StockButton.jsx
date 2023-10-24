@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 const StockButton = ({ stock, onAdd, initial }) => {
   const [productCount, setProductCount] = useState(initial);

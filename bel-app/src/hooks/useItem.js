@@ -1,16 +1,17 @@
-import { collection, getDocs, getFirestore } from "firebase/firestore";
+import { collection, getDocs, getFirestore, query, where } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import useIsLoading from "./useLoading";
 
-export default function useItems() {
+export default function useItems(category) {
   const [products, setProducts] = useState([]);
-  const { stopLoading, isLoading } = useIsLoading();
-
+  const { stopLoading, startLoading, isLoading } = useIsLoading();
+  
   useEffect(() => {
     const fetchProducts = async () => {
+      startLoading()
       try {
         const db = getFirestore();
-        const itemsCollection = collection(db, "products");
+        const itemsCollection = category ? query(collection(db, "products"), where("category", "==", category)): collection(db, "products");
         const snapshot = await getDocs(itemsCollection);
 
         if (!snapshot.empty) {
@@ -28,7 +29,7 @@ export default function useItems() {
     };
 
     fetchProducts();
-  }, []);
+  }, [category]);
 
   return { products, isLoading };
 }

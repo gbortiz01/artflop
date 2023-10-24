@@ -1,11 +1,13 @@
-import React, { useContext } from 'react';
+import React, {useContext} from 'react';
 import ItemList from './ItemList';
 import useItems from '../hooks/useItem';
-import CartContext from '../context/cart.context';
+import { useParams } from 'react-router-dom';
+
 
 const ItemListContainer = ({ greeting }) => {
-  const { products, isLoading } = useItems();
-  const { addItem } = useContext(CartContext);
+  const {categoryId} =useParams()
+  const { products, isLoading } = useItems(categoryId);
+
 
   if (isLoading){
     return <div> Cargando... </div>
@@ -14,7 +16,7 @@ const ItemListContainer = ({ greeting }) => {
   return (
     <div>
       <h1>{greeting}</h1>
-      <ItemList products={products} onAddToCart={addItem} />
+      <ItemList products={products}  />
     </div>
   );
 };
