@@ -11,18 +11,19 @@ function Cart() {
     return (
       <div>
         <p>El carrito está vacío</p>
-        <button  className="delicate-button" onClick={() => navigate("/")}>Volver a tienda</button>
+        <button  className="button-volver" onClick={() => navigate("/")}>Volver a tienda</button>
       </div>
     );
   }
 
   return (
-    <div>
-      <h2>Resumen del carrito</h2>
-      <CartSummaryTable cart={cart} />
-      <button onClick={clear}>Vaciar Carrito</button>
-      <button onClick={() => navigate("/checkout")}>Terminar mi compra</button>
-    </div>
+    <div className="cart-summary">
+  <h2>Resumen del carrito</h2>
+  <CartSummaryTable cart={cart} />
+  <button  onClick={clear}>Vaciar Carrito</button>
+  <button onClick={() => navigate("/checkout")}>Terminar mi compra</button>
+</div>
+
   );
 }
 

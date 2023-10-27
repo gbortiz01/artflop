@@ -4,7 +4,6 @@ function CartSummaryTable({ cart }) {
   if (!cart || !cart.products) {
     return <div>No hay productos en el carrito.</div>;
   }
-
   return (
     <div className="table-responsive">
       <table className="table">
@@ -17,12 +16,12 @@ function CartSummaryTable({ cart }) {
           </tr>
         </thead>
         <tbody>
-          {cart.products.map(({ product, quantity }) => (
-            <tr key={product.id}>
-              <td>{product.title}</td>
-              <td>{quantity}</td>
-              <td>${product.price}</td>
-              <td>${product.price * quantity}</td>
+          {cart.products.map(( product ) => (
+            <tr key={product.item.id}>
+              <td>{product.item.title}</td>
+              <td>{product.quantity}</td>
+              <td>${product.item.precio}</td>
+              <td>${product.item.precio * product.quantity}</td>
             </tr>
           ))}
         </tbody>

@@ -8,10 +8,10 @@ export default function useItems(category) {
   
   useEffect(() => {
     const fetchProducts = async () => {
-      startLoading()
+      startLoading();
       try {
         const db = getFirestore();
-        const itemsCollection = category ? query(collection(db, "products"), where("category", "==", category)): collection(db, "products");
+        const itemsCollection = category ? query(collection(db, "products"), where("category", "==", category)) : collection(db, "products");
         const snapshot = await getDocs(itemsCollection);
 
         if (!snapshot.empty) {
@@ -31,5 +31,5 @@ export default function useItems(category) {
     fetchProducts();
   }, [category]);
 
-  return { products, isLoading };
+  return { products, isLoading }; 
 }

@@ -50,12 +50,13 @@ export default function CartProvider({ children }) {
     };
     
     const getTotal = () => {
-    const { products } = cart;
-    return products.reduce(
-    (acc, item) => acc + item.quantity * item.item.price,
-    0
-    );
-    };
+      const { products } = cart;
+      return products.reduce(
+      (acc, prod) => acc + prod.quantity * prod.item.precio,
+      0
+      );
+      
+      };
   return (
     <CartContext.Provider
       value={{

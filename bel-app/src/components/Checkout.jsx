@@ -1,76 +1,89 @@
-import CartSummaryTable from "./CartSummaryTable";
-import { useContext } from "react";
+import { useState, useContext } from "react";
 import CartContext from "../context/cart.context";
-import useForm from "../hooks/useForm";
-import { addDoc, collection, getFirestore } from "firebase/firestore";
-import BuyerForm from "../components/BuyerForm";
+import { addDoc, collection, serverTimestamp, getFirestore } from "firebase/firestore";
+import Swal from 'sweetalert2'; 
 
 function Checkout() {
-  const { cart } = useContext(CartContext);
+  const [user, setUser] = useState({});
+  const [validateEmail, setValidateEmail] = useState('');
+  const [orderId, setOrderId] = useState('');
+  const { cart, getTotal, clear } = useContext(CartContext);
 
-  const [values, handleChange] = useForm({
-    name: "",
-    lastName: "",
-    phone: "",
-    email: "",
-    email2: "",
-  });
+  const datosComprador = (e) => {
+    setUser({
+      ...user,
+      [e.target.name]: e.target.value,
+    });
+  }
 
-  if (cart.items.length === 0) return <div>El carrito está vacío</div>;
-
-  const onSubmit = (e) => {
+  const finalizarCompra = (e) => {
     e.preventDefault();
 
-    for (const key in values) {
-      if (values[key] === "") {
-        // Agregar manejo de errores de Bootstrap aquí
-        alert("Todos los campos son obligatorios");
-        return;
-      }
+    if (!user.name || !user.phone) {
+      return Swal.fire({ 
+        icon: 'error',
+        title: 'Oops...',
+        text: '¡Completa todos los campos!',
+      });
+    } else {
+      let orders = {
+        user,
+        products: cart,
+        total: getTotal(),
+        date: serverTimestamp(),
+      };
+
+      const db = getFirestore();
+      const ventas = collection(db, "orders");
+      addDoc(ventas, orders)
+        .then((res) => {
+          setOrderId(res.id);
+          clear()
+        })
+        .catch((error) => console.log(error));
     }
-
-    if (values.email !== values.email2) {
-      // Agregar manejo de errores de Bootstrap aquí
-      alert("Los emails no coinciden");
-      return;
-    }
-
-    sendOrder();
-  };
-
-  const sendOrder = () => {
-    const db = getFirestore();
-
-    const orderCollection = collection(db, "orders");
-    addDoc(orderCollection, {
-      ...cart,
-      buyer: {
-        name: values.name,
-        lastName: values.lastName,
-        phone: values.phone,
-        email: values.email,
-      },
-      date: new Date(),
-    }).then(({ id }) => {
-      // Agregar manejo de éxito de Bootstrap aquí
-      alert(`Orden enviada. El ID de la orden es: ${id}`);
-    });
-  };
+  }
 
   return (
-    <div className="container">
-      <div className="row">
-        <div className="col-md-6">
-          <h2>Resumen del carrito</h2>
-          <CartSummaryTable cart={cart} />
+    <div>
+      {orderId !== ''
+      ?<div className="order-confirmation">
+      <h2>Felicitaciones! hemos generado su orden con exito</h2>
+      <h5>Su id de registro es: {orderId}</h5>
+     </div>    
+      :<div className="form-container">
+      <h2>Formulario de Contacto</h2>
+      <form onSubmit={finalizarCompra} id="contact-form" method="post">
+        <div className="form-group">
+          <label htmlFor="nombre">Nombre</label>
+          <input className="form-input" onChange={datosComprador} type="text" id="nombre" name="name" required />
         </div>
-        <div className="col-md-6">
-          <h2>Formulario de compra</h2>
-          <BuyerForm onSubmit={onSubmit} values={values} handleChange={handleChange} />
+        <div className="form-group">
+          <label htmlFor="apellido">Apellido</label>
+          <input className="form-input" onChange={datosComprador} type="text" id="apellido" name="last-name" required />
         </div>
-      </div>
+        <div className="form-group">
+          <label htmlFor="phone">Teléfono</label>
+          <input className="form-input" onChange={datosComprador} type="number" id="phone" name="phone" />
+        </div>
+        <div className="form-group">
+          <label htmlFor="email">Correo Electrónico</label>
+          <input className="form-input" onChange={datosComprador} type="email" id="email" name="email" required />
+        </div>
+        <div className="form-group">
+          <label htmlFor="repeat-email">Repetir Correo Electrónico</label>
+          <input className="form-input" onChange={e => setValidateEmail(e.target.value)} type="email" id="repeat-email" name="email" required />
+        </div>
+        <div className="form-actions">
+          <button className="submit-button" type="submit" disabled={validateEmail !== user.email}>
+            Generar orden
+          </button>
+        </div>
+      </form>
+    </div>}
     </div>
   );
 }
 
 export default Checkout;
+

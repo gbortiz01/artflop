@@ -1,8 +1,26 @@
-# React + Vite
+# artflop - bel-app
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+"bel-app" es una aplicación web desarrollada con React que te permite explorar y comprar productos de forma sencilla. La aplicación utiliza Firebase como base de datos y
+React Router para gestionar las rutas. Esta es una breve guía para comprender y ejecutar la aplicación.
 
-Currently, two official plugins are available:
+## Características
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Navegación fluida entre diferentes categorías de productos.
+- Visualización de detalles de productos.
+- Agregar y gestionar productos en el carrito de compras.
+- Finalizar la compra con un formulario de contacto.
+
+## Instalación
+
+Para ejecutar la aplicación en tu entorno local, sigue estos pasos:
+
+ El proyecto se creo con vitejs
+
+- `npm install` para instalar las dependencias
+-  `npm run dev` para correr el proyecto
+
+1. Clona este repositorio:
+
+https://github.com/gbortiz01/artflop.git
+
+Podes ver las dependencias instaladas en Package.json 

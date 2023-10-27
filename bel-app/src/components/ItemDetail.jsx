@@ -8,11 +8,15 @@ const ItemDetail = () => {
   const params = useParams();
   const { product, isLoading } = useItemById(params.itemId);
   const { addItem } = useContext(CartContext);
+  
+  const onAdd = (cantidad) =>{
+    addItem(product, cantidad)
+  }
 
   if (isLoading) {
     return <div>Cargando producto...</div>;
   }
-
+  
   return (
     <div className="item-detail">
       <h3 className="item-title">Detalle de: {product.title}</h3>
@@ -24,7 +28,7 @@ const ItemDetail = () => {
       />
       <p className="item-description">{product.description}</p>
       <p className="item-price">${product.precio}</p>
-      <StockButton initial={0} stock={product.stock} onAdd={addItem} />
+      <StockButton initial={0} stock={product.stock} onAdd={onAdd} />
     </div>
   );
 };
